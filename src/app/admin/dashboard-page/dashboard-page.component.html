@@ -1,1 +1,35 @@
-<p>dashboard-page works!</p>
+<div *ngIf="posts.length; else loading">
+  <div class="form-control">
+    <input type="text" placeholder="Найти пост ...">
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Автор</th>
+        <th>Название</th>
+        <th>Дата</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let post of posts; let idx = index">
+        <td>{{ idx + 1 }}</td>
+        <td>{{ post.author }}</td>
+        <td>{{ post.title }}</td>
+        <td>{{ post.date | date: 'medium' }}</td>
+        <td>
+          <button [routerLink]="['/admin', 'post', post.id, 'edit']" class="btn btn-link open">
+            Открыть
+          </button>
+          <a (click)="remove(post.id)">Удалить</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<ng-template #loading>
+  <p class="text-center">Loading ...</p>
+</ng-template>
