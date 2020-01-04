@@ -1,5 +1,11 @@
 <form class="card" [formGroup]="form" (ngSubmit)="submit()">
   <h2>Войти в панель администратора</h2>
+  <div *ngIf="auth.error$ | async as error" class="alert alert-danger">
+    {{ error }}
+  </div>
+  <div *ngIf="message" class="alert alert-info">
+    {{ message }}
+  </div>
   <div class="form-control" [ngClass]="{ invalid: form.get('email').touched && form.get('email').invalid }">
     <label for="email">Email</label>
     <input id="email" type="email" formControlName="email">
@@ -21,5 +27,5 @@
       </small>
     </div>
   </div>
-  <button type="sumbit" class="btn btn-primary" [disabled]="form.invalid">Войти</button>
+  <button type="sumbit" class="btn btn-primary" [disabled]="form.invalid || submitted">Войти</button>
 </form>
